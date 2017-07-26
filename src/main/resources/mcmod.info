@@ -1,0 +1,16 @@
+[
+{
+  "modid": "hydrophobia",
+  "name": "Hydrophobia",
+  "description": "Rain, rain, go away...",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["The_Icy_One"],
+  "credits": "Marikc1, for the request that sparked this mod.",
+  "logoFile": "logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
