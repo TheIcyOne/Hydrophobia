@@ -4,11 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid=Hydrophobia.MODID, name=Hydrophobia.NAME, version=Hydrophobia.VERSION)
+@Mod(modid=Hydrophobia.MODID, name=Hydrophobia.NAME, version=Hydrophobia.VERSION, serverSideOnly=true, acceptableRemoteVersions="*")
 public class Hydrophobia {
 	public static final String MODID = "hydrophobia";
 	public static final String NAME = "Hydrophobia";
