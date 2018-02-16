@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid=Hydrophobia.MODID, name=Hydrophobia.NAME, version=Hydrophobia.VERSION, serverSideOnly=true, acceptedMinecraftVersions="[1.7.0, 1.13]", acceptableRemoteVersions="*")
+@Mod(modid=Hydrophobia.MODID, name=Hydrophobia.NAME, version=Hydrophobia.VERSION, serverSideOnly=true, acceptedMinecraftVersions="[1.7.10, 1.13]", acceptableRemoteVersions="*")
 public class Hydrophobia {
 	public static final String MODID = "hydrophobia";
 	public static final String NAME = "Hydrophobia";
