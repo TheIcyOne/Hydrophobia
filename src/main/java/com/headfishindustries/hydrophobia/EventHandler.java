@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.SERVER)
 public final class EventHandler {
 	
-	double rainChance = ConfigHandler.cancelChance;
+	double rainChance = ConfigHandler.rainCancelChance;
 	
 	public static void registerEvents(){
 		EventHandler events = new EventHandler();
