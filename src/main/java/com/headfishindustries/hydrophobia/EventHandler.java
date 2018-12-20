@@ -30,7 +30,6 @@ public final class EventHandler {
 	@SubscribeEvent
 	public void onTick(WorldTickEvent e){
 		WorldInfo wi = e.world.getWorldInfo();
-		Hydrophobia.LOGGER.info(wi.getRainTime());
 		if (wi.getRainTime() == 1000){
 			if (e.world.rand.nextDouble() <= rainChance/100){
 				wi.setRainTime(0);
