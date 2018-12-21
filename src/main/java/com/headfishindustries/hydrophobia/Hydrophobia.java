@@ -3,7 +3,10 @@ package com.headfishindustries.hydrophobia;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.headfishindustries.hydrophobia.proxy.CommonProxy;
+
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -16,9 +19,11 @@ public class Hydrophobia {
 	
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
 	
-	@SideOnly(Side.SERVER)
+	@SidedProxy(serverSide="com.headfishindustries.hydrophobia.proxy.CommonProxy", clientSide="com.headfishindustries.hydrophobia.proxy.ClientProxy")
+	public static CommonProxy proxy;
+	
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent e){
-		EventHandler.registerEvents();
+		proxy.preInit(e);
 	}
 }
