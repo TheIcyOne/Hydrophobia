@@ -19,7 +19,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public final class EventHandler {
 	
 	static double rainChance = ConfigHandler.rainCancelChance;
-	static double thunderChance = ConfigHandler.thunderCancelChance;
 	static int thunderMode = ConfigHandler.thunderMode;
 	
 	private Map<World, Boolean> rainingMap = new HashMap<World, Boolean>();
@@ -39,13 +38,6 @@ public final class EventHandler {
 				Hydrophobia.LOGGER.info("The rain is staved off.");
 			}
 		}
-		if (e.world.getWorldInfo().getThunderTime() == 1000) {
-			if (e.world.rand.nextDouble() <= thunderChance/100){
-				wi.setThunderTime(0);
-				wi.setThundering(false);
-				Hydrophobia.LOGGER.info("The storm is staved off.");
-			}
-		}
 		if (e.world.isThundering() && thunderMode > 0) {
 			if (thunderMode == 1) {
                 e.world.getWorldInfo().setThunderTime(0);
@@ -61,20 +53,22 @@ public final class EventHandler {
 		if (wi.getWorldTime() % 200 == 0) {
 			if (wi.isThundering()){
 				switch(ConfigHandler.thunderMode) {
-				case 0:
-					break;
-				case 1:
-					wi.setThundering(false);
-					wi.setRaining(true);
-					break;
-				case 2:
-					wi.setThundering(false);
-					wi.setRaining(false);
-					wi.setRainTime(0);
-					break;
+					case 0:
+						break;
+					case 1:
+						wi.setThundering(false);
+						wi.setRaining(true);
+						break;
+					case 2:
+						wi.setThundering(false);
+						wi.setRaining(false);
+						wi.setRainTime(0);
+						break;
+					}
 				}
+			
+				rainingMap.put(e.world, wi.isRaining());
 			}
-			rainingMap.put(e.world, wi.isRaining());
 		}
 	}
 	
