@@ -12,25 +12,23 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.SERVER)
 public final class EventHandler {
 	
 	static double rainChance = ConfigHandler.rainCancelChance;
 	static int thunderMode = ConfigHandler.thunderMode;
 	
-	private Map<World, Boolean> rainingMap = new HashMap<World, Boolean>();
+	private static Map<World, Boolean> rainingMap = new HashMap<World, Boolean>();
 	
 	public static void registerEvents(){
-		EventHandler events = new EventHandler();
-		MinecraftForge.EVENT_BUS.register(events);
+		MinecraftForge.EVENT_BUS.register(EventHandler.class);
 	}
 	
 	@SubscribeEvent
-	public void onTick(WorldTickEvent e){
+	public static void onTick(WorldTickEvent e){
+		if (e.world.isRemote) return;
 		WorldInfo wi = e.world.getWorldInfo();
+		rainingMap.put(e.world, wi.isRaining());
 		if (wi.getRainTime() == 1000){
 			if (e.world.rand.nextDouble() <= rainChance/100){
 				wi.setRainTime(0);
@@ -67,15 +65,16 @@ public final class EventHandler {
 					}
 				}
 			
-				rainingMap.put(e.world, wi.isRaining());
+				
 			}
 		}
 	}
 	
 	@SubscribeEvent
-	public void onWake(PlayerWakeUpEvent e) {
+	public static void onWake(PlayerWakeUpEvent e) {
 		World w = e.getEntityPlayer().world;
-		if (w.getWorldTime() % 24000L <= 10 && rainingMap.get(w) && w.rand.nextDouble() >= ConfigHandler.continueChance/100) {
+		if (w.isRemote) return;
+		if (w.getWorldTime() % 24000L <= 10 && rainingMap.get(w) && w.rand.nextDouble() <= ConfigHandler.continueChance/100) {
 			Timer t = new Timer();
 			t.schedule(new TimerTask() {
 
@@ -83,6 +82,7 @@ public final class EventHandler {
 				public void run() {
 					w.getWorldInfo().setRaining(true);
 					w.getWorldInfo().setRainTime((300 + (new Random()).nextInt(600)) * 20);
+					Hydrophobia.LOGGER.info("The rain continues into the new day.");
 				}
 				
 			}, 10);
